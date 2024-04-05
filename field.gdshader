@@ -4,7 +4,7 @@ global uniform sampler2D height_map;
 uniform sampler2D grass_texture;
 uniform float scale = 1.0;
 void vertex() {
-	VERTEX.y = texture(height_map, UV).r ;
+	VERTEX.y = texture(height_map, UV).r;
 	
 }
 
