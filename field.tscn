@@ -6,7 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://62cqerw324hp" path="res://blade of grass.obj" id="4_lwbj3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7t4x0"]
-size = Vector2(100, 100)
+size = Vector2(20, 20)
 subdivide_width = 200
 subdivide_depth = 200
 
@@ -18,45 +18,42 @@ shader_parameter/grass_texture = ExtResource("2_l8bah")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5106"]
 cull_mode = 2
-depth_draw_mode = 2
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.517647, 0.517647, 0.517647, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_3jesq"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8w8b6"]
 noise_type = 2
-frequency = 0.0012
+frequency = 0.0162
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3uo8o"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cic1e"]
 seamless = true
-noise = SubResource("FastNoiseLite_3jesq")
+noise = SubResource("FastNoiseLite_8w8b6")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5h70f"]
-noise_type = 3
-frequency = 0.3034
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i0x1p"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fq6hc"]
-seamless = true
-noise = SubResource("FastNoiseLite_5h70f")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1khlq"]
+noise = SubResource("FastNoiseLite_i0x1p")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfh6l"]
 shader = ExtResource("3_fkqvj")
-shader_parameter/location = 3.0
-shader_parameter/rows = 1000
-shader_parameter/interval = 20.0
-shader_parameter/random_map = SubResource("NoiseTexture2D_fq6hc")
-shader_parameter/color_map = SubResource("NoiseTexture2D_3uo8o")
+shader_parameter/location = null
+shader_parameter/rows = 300
+shader_parameter/interval = 15.0
+shader_parameter/random_map = SubResource("NoiseTexture2D_1khlq")
+shader_parameter/color_map = SubResource("NoiseTexture2D_cic1e")
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.24249e-05, -0.108253, 0.00337315)
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
-transform = Transform3D(0.58, 0, 0, 0, 1, 0, 0, 0, 0.58, 0, 0.115229, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0595506, 0)
 mesh = SubResource("PlaneMesh_7t4x0")
 material = SubResource("ShaderMaterial_hj220")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34485, -1.19168, -1.50538)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116737, -2.12743, -2.366)
 material_override = SubResource("StandardMaterial3D_d5106")
-amount = 1000000
+amount = 100000
 process_material = SubResource("ShaderMaterial_pfh6l")
 draw_pass_1 = ExtResource("4_lwbj3")
