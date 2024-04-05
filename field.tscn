@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmmiui4ildr8"]
+[gd_scene load_steps=17 format=3 uid="uid://dmmiui4ildr8"]
 
+[ext_resource type="Script" path="res://field.gd" id="1_l7x3m"]
 [ext_resource type="Shader" path="res://field.gdshader" id="1_uy0g6"]
 [ext_resource type="Texture2D" uid="uid://dfjv46ngqvdab" path="res://dark_green_grass_ground_land_dirt_aerial_top_seaml_by_hhh316_d7cyww8-pre.jpg" id="2_l8bah"]
 [ext_resource type="Shader" path="res://grass.gdshader" id="3_fkqvj"]
@@ -24,7 +25,7 @@ albedo_color = Color(0.517647, 0.517647, 0.517647, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8w8b6"]
 noise_type = 2
-frequency = 0.0162
+frequency = 0.0021
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cic1e"]
 seamless = true
@@ -35,16 +36,32 @@ noise = SubResource("FastNoiseLite_8w8b6")
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1khlq"]
 noise = SubResource("FastNoiseLite_i0x1p")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p7pmy"]
+noise_type = 2
+frequency = 0.0034
+fractal_gain = 6.41
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_st22u"]
+invert = true
+seamless = true
+noise = SubResource("FastNoiseLite_p7pmy")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfh6l"]
 shader = ExtResource("3_fkqvj")
-shader_parameter/location = null
-shader_parameter/rows = 300
-shader_parameter/interval = 15.0
+shader_parameter/rows = 600
+shader_parameter/interval = 30.0
 shader_parameter/random_map = SubResource("NoiseTexture2D_1khlq")
 shader_parameter/color_map = SubResource("NoiseTexture2D_cic1e")
+shader_parameter/wind_map = SubResource("NoiseTexture2D_st22u")
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="Environment" id="Environment_48gpx"]
+background_mode = 1
+background_color = Color(0.815686, 0.596078, 0.513726, 1)
+ambient_light_color = Color(0.678431, 0.458824, 0.321569, 1)
+
+[node name="field" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.24249e-05, -0.108253, 0.00337315)
+script = ExtResource("1_l7x3m")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0595506, 0)
@@ -52,8 +69,15 @@ mesh = SubResource("PlaneMesh_7t4x0")
 material = SubResource("ShaderMaterial_hj220")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116737, -2.12743, -2.366)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0299978, -2.10972, -0.0852048)
 material_override = SubResource("StandardMaterial3D_d5106")
-amount = 100000
+amount = 1000000
+visibility_aabb = AABB(-9.51249, -4, -8.71172, 20.4739, 8, 17.4234)
 process_material = SubResource("ShaderMaterial_pfh6l")
 draw_pass_1 = ExtResource("4_lwbj3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.02497, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_48gpx")
