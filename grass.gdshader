@@ -20,21 +20,16 @@ void start() {
 	
 	float curr_height = texture(height_map, TRANSFORM[3].xz/550.0*10.0 + offset).r * 1.0;
 	
-	
-	
-
-	
-	
 	int texture_x_offset = index%int(texture_size);
 	int texture_y_offset = int(floor(float(INDEX)/texture_size))%int(texture_size);
 	vec2 texture_offset = vec2(float(texture_x_offset), float(texture_y_offset));
 	
-	float randomx = (texture(random_map_x,texture_offset/texture_size).r - 0.5)*10.0;
-	float randomy = (texture(random_map_z,texture_offset/texture_size).r - 0.5)*10.0;
+	float randomx = (texture(random_map_x,texture_offset/texture_size).r - 0.5)*0.8;
+	float randomy = (texture(random_map_z,texture_offset/texture_size).r - 0.5)*0.8;
 	
 	
 	
-	TRANSFORM[3].xyz = vec3(float(texture_x_offset) * interval + randomx -offset,1,float(texture_y_offset)*interval + randomy - offset);
+	TRANSFORM[3].xyz = vec3(float(texture_x_offset) * interval + randomx -offset,1.0 + randomx,float(texture_y_offset)*interval + randomy - offset);
 	//TRANSFORM[1].xyz = vec3(0.0,randomx*10.0,0.0);
 	
 	if (int(INDEX) % 2 == 0){
