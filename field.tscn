@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dmmiui4ildr8"]
+[gd_scene load_steps=19 format=3 uid="uid://dmmiui4ildr8"]
 
 [ext_resource type="Script" path="res://field.gd" id="1_l7x3m"]
 [ext_resource type="Shader" path="res://field.gdshader" id="1_uy0g6"]
@@ -31,14 +31,25 @@ frequency = 0.0021
 seamless = true
 noise = SubResource("FastNoiseLite_8w8b6")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_i0x1p"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vyp2f"]
+noise_type = 2
+frequency = 0.036
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1khlq"]
-noise = SubResource("FastNoiseLite_i0x1p")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_csjq6"]
+seamless = true
+noise = SubResource("FastNoiseLite_vyp2f")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fap82"]
+noise_type = 2
+seed = 1535
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oygbn"]
+seamless = true
+noise = SubResource("FastNoiseLite_fap82")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_p7pmy"]
-noise_type = 2
-frequency = 0.0034
+noise_type = 0
+frequency = 0.0006
 fractal_gain = 6.41
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_st22u"]
@@ -49,8 +60,10 @@ noise = SubResource("FastNoiseLite_p7pmy")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfh6l"]
 shader = ExtResource("3_fkqvj")
 shader_parameter/rows = 600
-shader_parameter/interval = 30.0
-shader_parameter/random_map = SubResource("NoiseTexture2D_1khlq")
+shader_parameter/interval = 0.05
+shader_parameter/texture_size = 550.0
+shader_parameter/random_map_x = SubResource("NoiseTexture2D_csjq6")
+shader_parameter/random_map_z = SubResource("NoiseTexture2D_oygbn")
 shader_parameter/color_map = SubResource("NoiseTexture2D_cic1e")
 shader_parameter/wind_map = SubResource("NoiseTexture2D_st22u")
 
@@ -69,9 +82,9 @@ mesh = SubResource("PlaneMesh_7t4x0")
 material = SubResource("ShaderMaterial_hj220")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0299978, -2.10972, -0.0852048)
+transform = Transform3D(0.974963, 0.222365, 0, -0.222365, 0.974963, 0, 0, 0, 1, 0.795827, -2.89362, 0.284086)
 material_override = SubResource("StandardMaterial3D_d5106")
-amount = 1000000
+amount = 500001
 visibility_aabb = AABB(-9.51249, -4, -8.71172, 20.4739, 8, 17.4234)
 process_material = SubResource("ShaderMaterial_pfh6l")
 draw_pass_1 = ExtResource("4_lwbj3")
